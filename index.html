@@ -1,0 +1,329 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <style type="text/css">
+    /* CSS Snippet For Responsive Table - Stylized */
+    /* From iftee: https://gist.github.com/iftee/fb79db620683cdb9963e */
+
+    /* Basic */
+    * {
+      box-sizing: border-box;
+    }
+
+    table {
+      border-spacing: 0px;
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 15px;
+      background-color: transparent;
+      /* Change the background-color of table here */
+      text-align: left;
+      /* Change the text-alignment of table here */
+    }
+
+    th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      /* Change the border-color of heading here */
+      padding: 8px;
+    }
+
+    td {
+      border: 1px solid #cccccc;
+      /* Change the border-color of cells here */
+      padding: 8px;
+    }
+
+    /* Stylized */
+
+    /* Adding Striped Effect for odd rows */
+
+    tr {
+      background-color: transparent;
+      /* Change the default background-color of rows here */
+    }
+
+    tr:nth-of-type(2n+1) {
+      background-color: #eeeeee;
+      /* Change the background-color of odd rows here */
+    }
+
+    tr th {
+      background-color: #dddddd;
+      /* Change the background-color of heading here */
+    }
+
+    /* Adding Hover Effect for rows */
+
+    tr {
+      -moz-transition: background-color 300ms ease-in-out 0s;
+      -ms-transition: background-color 300ms ease-in-out 0s;
+      -o-transition: background-color 300ms ease-in-out 0s;
+      -webkit-transition: background-color 300ms ease-in-out 0s;
+      transition: background-color 300ms ease-in-out 0s;
+    }
+
+    tr:hover {
+      background-color: #fff176;
+      /* Change the hover background-color of rows here */
+    }
+
+    /* Removing left and right border of rows for modern UIs */
+
+    tr {
+      border-top: 1px solid #cccccc;
+      border-bottom: 1px solid #cccccc;
+    }
+
+    th,
+    td {
+      border: none;
+    }
+  </style>
+  <style type="text/css">
+    /* UI Adjustments */
+    li {
+      margin: 0;
+      padding: 5px 5px 5px 0;
+      max-width: 500px;
+    }
+
+    .input-html-wrapper textarea {
+      height: 300px;
+      margin-left: 20px;
+      width: calc(100% - 40px);
+    }
+
+    .input-html-wrapper .btn {
+      background-color: #008CBA;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 15px 32px;
+      margin: 20px 20px 20px 0;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+    }
+
+    .gap {
+      height: 50px;
+      /* Gap Between Each Comment Group */
+    }
+
+    span {
+      line-height: 23px;
+    }
+
+    tr th:first-child {
+      min-width: 180px;
+      /* Timestamp Column */
+    }
+
+    tr th:nth-child(2) {
+      min-width: 180px;
+      /* Name Column */
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Facebook Groups: Post Saver</h1>
+  <p>Follow the steps below and you'll end up with a table of all text + urls in comments from the post.<br><b>Videos and photos uploaded directly to Facebook comments are currently unsupported.</b></p>
+  <div class='steps'>
+    <ol>
+      <li>Find the Facebook Post you want to pull the comments from.</li>
+      <li>With that post visible, open the Javascript console.
+        <ul>
+          <li>Chrome: Go to View -> Developer -> Javascript Console</li>
+        </ul>
+      </li>
+      <li>You may have "See More", "More Replies", "More Comments" on the post you'd like to copy. All of those buttons
+        need to be clicked to load the full content. You can run this code snippet below in the javascript console which
+        will do it for you.
+        <pre>// Click "See More" and "more replies" buttons on FB Post
+var aTags = document.getElementsByTagName("a");
+var seeMoreText = "See More";
+var repliesText = "Replies";
+var moreRepliesText = "more repl"; // repl covers reply and replies
+var moreCommentsText = "more comments";
+
+
+for (var i = 0; i < aTags.length; i++) {
+  if (aTags[i].textContent == seeMoreText) {
+    console.log('Clicking '+seeMoreText);
+    aTags[i].click(); // Click button
+    continue;
+  }
+  if (aTags[i].textContent.indexOf(repliesText) != -1) {
+    console.log('Clicking '+repliesText);
+    aTags[i].click(); // Click button
+    continue;
+    }
+  if (aTags[i].textContent.indexOf(moreRepliesText) != -1) {
+    console.log('Clicking '+moreRepliesText);
+    aTags[i].click(); // Click button
+    continue;
+  }
+  if (aTags[i].textContent.indexOf(moreCommentsText) != -1) {
+    console.log('Clicking '+moreCommentsText);
+    aTags[i].click(); // Click button
+    continue;
+  }
+}</pre>
+        </li> <li>Once you confirm all comments are viewable, find the div HTML element where id contains
+        <b>mall_post_</b>.</li>
+      <li>Copy the div with all it's contents to your clipboard.</li>
+      <li>Pase the html code below. <b>Your HTML code never leaves this page. I have no interest to log this data.</b>
+      </li>
+    </ol>
+  </div>
+  <div class='input-html-wrapper'>
+    <textarea></textarea>
+    <ol start="7">
+      <li>Click Extract.</li>
+      <li>If all went well, you should have a table below that you can copy and paste directly into excel, google
+        sheets, etc.</li>
+    </ol>
+    <button id='btn-extract' class='btn'>Extract</button>
+  </div>
+  <div class='output-wrapper'>
+    <table>
+      <thead>
+        <th>
+          Timestamp
+        </th>
+        <th>
+          Name
+        </th>
+        <th>
+          Comment
+        </th>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    let post;
+    let digestedResponseObject = {
+      'main_post': {
+        'timestamp': '',
+        'user': '',
+        'message': '',
+        'link': ''
+      },
+      'comments': []
+    };
+
+    function digestPost() {
+      post = $(".input-html-wrapper textarea").val();
+      if (post) {
+        post = post.replace('’', "'");
+
+        htmlNodes = $($.parseHTML(post));
+
+        const mainPostTimestampEPOC = $(htmlNodes).find('abbr[data-utime]').first().attr('data-utime');
+        const mainPostTimestampString = new Date(mainPostTimestampEPOC * 1000).toLocaleString();
+        digestedResponseObject['main_post']['timestamp'] = mainPostTimestampString;
+
+        digestedResponseObject['main_post']['user'] = $(htmlNodes).find('[data-testid="post_message"]').prev('div')
+          .find('a[href*="location=group"]').first().attr('title');
+        digestedResponseObject['main_post']['message'] = $(htmlNodes).find('[data-testid="post_message"] p').html();
+        digestedResponseObject['main_post']['message'] = $(htmlNodes).find('[data-testid="post_message"] p').html();
+        digestedResponseObject['main_post']['link'] = "https://www.facebook.com" +
+          $(htmlNodes).find('[data-testid="post_message"]').prev('div').find('a[href*="/permalink/"]').first().attr(
+            'href');
+
+        const allComments = $(htmlNodes).find('.accessible_elem').first().parent().find('ul li');
+        allComments.each(function () {
+          let comment = $(this);
+
+          const user = comment.find('img').first().attr('alt');
+          let message = comment.find('span[dir="ltr"]').first().html();
+          const link = comment.find('.livetimestamp').first().closest('a').attr('href');
+          const timestampEPOC = comment.find('.livetimestamp').first().attr('data-utime');
+          const timestampString = new Date(timestampEPOC * 1000).toLocaleString();
+
+          if (user && message) {
+            // Checking using aria-label if it contains "reply" for grouping comments + comment replies together
+            let isReply = false;
+            const commentTypes = comment.find('span[dir="ltr"]').first().closest('div[aria-label]').attr(
+              'aria-label');
+            if (commentTypes.indexOf('reply') != -1) {
+              isReply = true;
+            }
+
+            // Pull hovercard href's for names out of message replace with [[NAME]]
+            if (message.indexOf('data-hovercard') != -1) {
+              let messageDOMObj = comment.find('span[dir="ltr"]').first();
+              let name = messageDOMObj.find('a[data-hovercard]').first().text();
+              messageDOMObj.find('a[data-hovercard]').replaceWith('[[' + name + ']]');
+              messageDOMObj.find('a[data-hovercard]').contents().unwrap();
+              message = messageDOMObj.html();
+            }
+
+            // Move FB URL -> Direct URL
+            if (message.indexOf('https://l.facebook.com/l.php') != -1) {
+              let messageDOMObj = comment.find('span[dir="ltr"]').first();
+              messageDOMObj.find("a[href^='https://l.facebook.com/l.php?u=']").each(function (index) {
+                let fbURL = $(this).attr('href');
+                fbURL = fbURL.replace('https://l.facebook.com/l.php?u=', '');
+                fbURL = decodeURIComponent(fbURL);
+                fbURL = fbURL.split('?')[0];
+
+                $(this).attr('href', fbURL);
+                $(this).html(fbURL);
+              });
+              message = messageDOMObj.html();
+            }
+
+            let commentObject = {
+              'isReply': isReply,
+              'user': user,
+              'message': message,
+              'link': link,
+              'timestamp': timestampString
+            }
+            digestedResponseObject['comments'].push(commentObject);
+          }
+        });
+
+        let rowsHTML = `<tr>
+          <td>${digestedResponseObject['main_post'].timestamp}</td>
+          <td>${digestedResponseObject['main_post'].user}</td>
+          <td>${digestedResponseObject['main_post'].message}</td>
+        </tr>`;
+
+        for (let index = 0; index < digestedResponseObject.comments.length; index++) {
+          const comment = digestedResponseObject.comments[index];
+          if (!comment.isReply) {
+            rowsHTML += `<tr class='gap'>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>`;
+          }
+          rowsHTML += `<tr>
+             <td>${comment.timestamp}</td>
+             <td>${comment.user}</td>
+             <td>${comment.message}</td>
+            </tr>`;
+        }
+        $(".output-wrapper tbody").html(rowsHTML);
+      }
+    }
+    $(document).ready(function () {
+      $("#btn-extract").click(function () {
+        digestPost();
+      });
+    });
+  </script>
+</body>
+
+</html>
